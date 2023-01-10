@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome !!!!</title>
+</head>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link th:href="@{./css/login.css}" rel="stylesheet">
+
+
+</head>
+<body>
+<div class="login-container">
+    <div class="header"><h1> USER LOGIN </h1></div>
+
+    <form th:action="@{/signUp}" th:method="post" th:object="${userDto}">
+<!--        <label for="id"><i class='bx bxs-user-circle'></i>-->
+<!--            <input id="id" type="text" name="id" placeholder="ID"></label>-->
+        <label for="name"><i class='bx bxs-lock'></i>
+            <input id="name" type="text" name="name" th:field="*{name}" placeholder="name"></label>
+
+        <label for="email"><i class='bx bxs-user-circle'></i>
+            <input id="email" type="email" name="email"  th:field="*{email}" placeholder="email"></label>
+        <label for="password"><i class='bx bxs-circle'></i>
+            <input id="password" type="password" name="password" th:field="*{password}" placeholder="password"></label>
+        <button type="submit" value="Login">SIGNUP</button>
+    </form>
+</div>
+</body>
+</html>

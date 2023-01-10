@@ -1,0 +1,21 @@
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <title>LOGIN</title>
+    <link th:href="@{./css/login.css}" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+<div class="login-container">
+    <p th:text="${error}"></p>
+    <div class="header"><h1> USER LOGIN </h1></div>
+    <form th:action="@{/login}" th:method="post">
+        <label for="email"><i class='bx bxs-user-circle'></i>
+            <input id="email" type="email" name="email" th:value="${email}" placeholder="email"></label>
+        <label for="password"><i class='bx bxs-lock'></i>
+            <input id="password" type="password" name="password" th:value="${password}" placeholder="password"></label>
+        <button type="submit" value="Login">LOGIN</button>
+    </form>
+</div>
+</body>
+</html>

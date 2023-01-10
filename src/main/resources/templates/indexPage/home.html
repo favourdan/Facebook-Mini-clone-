@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link th:href="@{./css/post.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+    <div class="left">
+        <h1 class="title">Facebook</h1>
+    </div>
+    <div class="right">
+        <ul>
+            <li><a th:href="@{/index.html}">Home</a></li>
+            <li> <a href="@{indexPage/login}">Logout</a></li>
+        </ul>
+        <p th:text="${session.user.getName()}"></p>
+    </div>
+</nav>
+
+<section class="postNew">
+    <form th:action="@{'/posts/create-post/'+ ${session.user.getId()}}" th:method="post" th:object="${postDto}">
+        <h3 for="posts"> Add New Post </h3>
+        <textarea name="posts" id="post" cols="50" rows="10" th:field="*{message}"
+                  placeholder="Add new post"></textarea>
+        <button type="submit">Share<i class='bx bx-share' ></i></button>
+    </form>
+</section>
+<div class="container">
+    <h2>Posts</h2>
+    <div class="posts-container" th:each="post : ${posts}">
+        <div class="details">
+            <div class="left">
+                <h3 th:text="${post.getUser().getName()}"></h3>
+                <p>time</p>
+            </div>
+            <div class="actionButtons">
+                <p><i class='bx bx-like'></i><span>3</span></p>
+            </div>
+        </div>
+        <div class="bottom">
+            <p th:text="${post.getMessage()}"></p>
+            <br> <br><hr>
+            <div class="listOfComments" th:each="comment : ${post.getComments()}">
+                <div class="template">
+                    <div class="comment-info">
+                        <h3 th:text="${comment.getUser().getName()}"></h3>
+                        <p>May 06, 2022</p>
+                    </div>
+                    <p class="bottom" th:text="${comment.getMessage()}"></p>
+                </div>
+            </div>
+        </div>
+            <form th:action="@{'/comments/create-comment/'+ ${session.user.getId()} +'/'+${post.getId()}}"
+                  class="comments" th:object="${commentDto}" th:method="post">
+                <input type="text" name="comment" th:field="*{message}"
+                       value="" placeholder="Add comment">
+                <button type="submit">Add</button>
+                </input>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
